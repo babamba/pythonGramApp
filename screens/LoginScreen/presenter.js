@@ -16,15 +16,25 @@ const LogInScreen = props =>
                />
           </View>
           <View style={styles.content}>
-               <TextInput placeholder="Username" />
-               <TextInput placeholder="Password" />
-                    <TouchableOpacity style={styles.fbContainer} >
-                         <View style={styles.fbView}>
-                              <Text>Log In</Text>
+               <TextInput 
+                    placeholder="Username" 
+                    style={styles.textInput}
+                    autoCapitalize={"none"}
+                    autoCorrect={false}
+               />
+               <TextInput 
+                    placeholder="Password" 
+                    style={styles.textInput} 
+                    autoCapitalize={"none"}
+                    secureTextEntry={true}
+               />
+                    <TouchableOpacity style={styles.touchable}>
+                         <View style={styles.button}>
+                              <Text style={styles.btnText }>Log In</Text>
                          </View>
                     </TouchableOpacity>
-                    <TouchableOpacity>
-                         <View>
+                    <TouchableOpacity style={styles.fbContainer} >
+                         <View style={styles.fbView}>
                               <Ionicons name="logo-facebook" size={22} color="#3E99EE" />
                               <Text style={styles.fbText}>Log In with Facebook</Text>
                          </View>
@@ -53,7 +63,7 @@ const styles = StyleSheet.create({
         content: {
           flex: 4,
           backgroundColor: "white",
-          paddingTop: 20,
+          paddingTop: 50,
           alignItems: "center",
           justifyContent: "flex-start"
         },
@@ -69,6 +79,34 @@ const styles = StyleSheet.create({
           marginLeft: 10,
           fontWeight: "600",
           fontSize: 14
+        },
+        textInput:{
+             height:50,
+             borderColor:'#bbb',
+             borderWidth:1,
+             width: width -80,
+             borderRadius : 5,
+             marginBottom:15,
+             paddingHorizontal: 15,
+             backgroundColor:"#FAFAFA",
+             fontSize: 14
+        },
+        touchable : {
+          borderRadius: 5,
+          backgroundColor:"#3E99EE",
+          width: width - 80
+        },
+        button : {
+          paddingHorizontal:7,
+          height:50,
+          justifyContent:"center"
+          
+        },
+        btnText : {
+          color:"white",
+          fontWeight:"600",
+          textAlign:"center",
+          fontSize:14
         }
 });
 
