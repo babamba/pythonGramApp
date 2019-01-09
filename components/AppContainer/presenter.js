@@ -10,12 +10,12 @@ class AppContainer extends Component {
           isLoggedIn: PropTypes.bool.isRequired
      }
      render(){
-          const { isLoggedIn } = this.props;
+          const { isLoggedIn, profile } = this.props;
           return (
           <View style={styles.container} >
                <StatusBar hidden={false}/>
-               {isLoggedIn ? ( 
-                    <RootNavigation/>
+               {isLoggedIn && profile ? ( 
+                    <RootNavigation screenProps = {{username: profile.username}} />
                     ) : ( 
                     <LoggedOutNavigation/> )
                }
@@ -27,7 +27,7 @@ class AppContainer extends Component {
 const styles = StyleSheet.create({
      container : {
         flex: 1,
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
      }
 })
 
