@@ -1,12 +1,13 @@
 import React from "react";
-import { View, Text, Image, StyleSheet, Dimensions, TouchableOpacity, TextInput, StatusBar } from "react-native";
+import { View, Text, Image, StyleSheet, Dimensions, TouchableOpacity, TextInput, StatusBar, ActivityIndicator } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import Proptypes from "prop-types";
 
 const { width, height } = Dimensions.get("window");
 
 const LogInScreen = props => 
      <View style={styles.container}> 
-     <StatusBar barStyle={"default"}/>
+          <StatusBar barStyle={"default"}/>
           <View style={styles.header}>
                <Image 
                     source={require("../../assets/images/logo-white.png")} 
@@ -21,19 +22,28 @@ const LogInScreen = props =>
                     style={styles.textInput}
                     autoCapitalize={"none"}
                     autoCorrect={false}
+                    value={props.username}
+                    onChangeText={props.changeUsername}
                />
                <TextInput 
                     placeholder="Password" 
                     style={styles.textInput} 
                     autoCapitalize={"none"}
                     secureTextEntry={true}
+                    value={props.password}
+                    onChangeText={props.changePassword}
+                    returnKeyType={"send"}
                />
-                    <TouchableOpacity style={styles.touchable}>
+                    <TouchableOpacity style={styles.touchable} onPressOut={props.submit}>
                          <View style={styles.button}>
-                              <Text style={styles.btnText }>Log In</Text>
+                              {props.isSubmiting ? ( 
+                                   <ActivityIndicator size="small" color="white" /> 
+                                   ) : ( 
+                                   <Text style={styles.btnText }>Log In</Text> 
+                               )}
                          </View>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.fbContainer} >
+                    <TouchableOpacity style={styles.fbContainer} onPressOut={props.fbLogin}>
                          <View style={styles.fbView}>
                               <Ionicons name="logo-facebook" size={22} color="#3E99EE" />
                               <Text style={styles.fbText}>Log In with Facebook</Text>
@@ -42,7 +52,15 @@ const LogInScreen = props =>
           </View>
      </View>
 
-
+LogInScreen.Proptypes = {
+     isSubmiting: Proptypes.bool.isRequired,
+     username:Proptypes.string.isRequired,
+     password:Proptypes.string.isRequired,
+     changeUsername : Proptypes.func.isRequired,
+     changePassword : Proptypes.func.isRequired,
+     submit : Proptypes.func.isRequired,
+     fbLogin : Proptypes.func.isRequired
+}
 
 const styles = StyleSheet.create({
      container: {
@@ -83,7 +101,7 @@ const styles = StyleSheet.create({
         textInput:{
              height:50,
              borderColor:'#bbb',
-             borderWidth:1,
+             borderWidth: StyleSheet.hairlineWidth,
              width: width -80,
              borderRadius : 5,
              marginBottom:15,
@@ -94,7 +112,8 @@ const styles = StyleSheet.create({
         touchable : {
           borderRadius: 5,
           backgroundColor:"#3E99EE",
-          width: width - 80
+          width: width - 80,
+          marginTop: 25
         },
         button : {
           paddingHorizontal:7,
