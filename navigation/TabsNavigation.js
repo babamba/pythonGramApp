@@ -1,12 +1,14 @@
 import React from "react";
-import { View } from "react-native";
-import { createBottomTabNavigator  } from "react-navigation";
+import { View, Text } from "react-native";
+import { createBottomTabNavigator } from "react-navigation";
 import HomeRoute from "../routes/HomeRoute";
 import SearchRoute from "../routes/SearchRoute";
 import NotificationsRoute from "../routes/NotificationsRoute";
 import ProfileRoute from "../routes/ProfileRoute";
 import { Ionicons } from "@expo/vector-icons";
 
+
+const defaultScreen = props => <Text>Search</Text>;
 const TabsNavigation = createBottomTabNavigator (
      {
           Home : {
@@ -32,6 +34,21 @@ const TabsNavigation = createBottomTabNavigator (
                          />
                     )
                }
+          },
+          AddPhoto : {
+               screen : defaultScreen,
+               navigationOptions: ({navigation}) => ({
+                    tabBarIcon: ({ focused }) => (
+                         <Ionicons
+                           name={'ios-add-circle-outline'}
+                           size={30}
+                           color={"black"}
+                         />
+                    ),
+                    tabBarOnPress: () => {
+                         navigation.navigate("TakePhoto");
+                    }
+               })
           },
           Notifications:{
                screen:NotificationsRoute,
@@ -59,18 +76,15 @@ const TabsNavigation = createBottomTabNavigator (
           }
      },
      {
-          tabBarPosition:"bottom",
           tabBarOptions:{
                showLabel:false,
                style:{
                     backgroundColor:"#FBFBFB",
                     height:45
                }
-          }
+          },
      },
-     // navigationOptions:{
-     //      swipe
-     // }
+     
 );
 
 export default TabsNavigation
