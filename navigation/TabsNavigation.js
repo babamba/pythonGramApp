@@ -68,9 +68,9 @@ const TabsNavigation = createBottomTabNavigator (
                }
           }
      },
-     navigationOptions:{
-          swipe
-     }
+     // navigationOptions:{
+     //      swipe
+     // }
 );
 
 export default TabsNavigation
