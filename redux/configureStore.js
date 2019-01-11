@@ -3,6 +3,7 @@ import { persistStore , persistCombineReducers } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import thunk from "redux-thunk";
 import user from "./modules/user";
+import photos from "./modules/photos";
 
 const middlewares = [thunk];
 
@@ -16,7 +17,7 @@ const persistConfig = {
 
 // 모바일폰의 디스크에 리듀서들을 생성한 config들과 함께 저장.
 const reducer = persistCombineReducers(persistConfig, {
-     user
+     user, photos
 });
 
 const configureStore = () => {
