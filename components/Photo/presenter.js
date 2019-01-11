@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { View, Text, TouchableOpacity, Image, Dimensions, StyleSheet } from "react-native";
 import FadeIn from "react-native-fade-in-image";
+import { withNavigation } from "react-navigation";
+import PhotoActions from "../PhotoActions";
 
 const { width, height } = Dimensions.get("window");
 
@@ -30,6 +32,7 @@ const Photo = props => (
                />
           </FadeIn>
           <View style={styles.photoMeta} >
+               <PhotoActions is_liked={props.is_liked} like_count={props.like_count}/>
                <View style={styles.comments}>
                     <Text style={styles.commentAuthor}>
                          {props.creator.username}
@@ -37,7 +40,7 @@ const Photo = props => (
                     </Text>
                </View>
                {props.comments.length > 0 && (
-                    <TouchableOpacity>
+                    <TouchableOpacity onmPressOut={() => props.navigation.navigate("Comments")} >
                          <View style={styles.commentsLink} >
                               {props.comments.length === 1 ? (
                                    <Text style={styles.linkText}>View 1 comment</Text>
@@ -105,7 +108,7 @@ const styles = StyleSheet.create({
      dateText:{
           fontSize:12,
           color:"#999",
-          marginTop: 5
+          marginTop: 10
      }
 })
 
@@ -134,4 +137,4 @@ Photo.propTypes = {
      is_vertical : PropTypes.bool.isRequired
 }
 
-export default Photo;
+export default withNavigation(Photo);

@@ -6,10 +6,16 @@ import NavButton from "../components/NavButton";
 //공통요소들
 const sharedRoutes = {
      Likes: {
-          screen : LikesScreen
+          screen : LikesScreen,
+          navigationOptions: {
+               headerTitle: "Likes"
+          }
      },
      Comments : {
-          screen : CommentsScreen
+          screen : CommentsScreen,
+          navigationOptions: {
+               headerTitle:"Comments"
+          }
      }
 }
 
