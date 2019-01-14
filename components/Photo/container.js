@@ -16,7 +16,7 @@ class Container extends Component {
           dispatchLike : PropTypes.func.isRequired
      };
      render(){
-          console.log(this.props);
+          //console.log(this.props);
           return <Photo handlePress = {this._handlePress} {...this.props} {...this.state} />;
      }
      // 생성시점에 지정해준 state 값을 가지고 내부 이벤트 관리

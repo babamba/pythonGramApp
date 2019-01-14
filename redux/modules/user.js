@@ -58,7 +58,7 @@ function login(username, password){
           .then(response => response.json())
           .then(json => {
                if(json.user && json.token){
-                    console.log(json)
+                    //console.log(json)
                     dispatch(setLogIn(json.token))
                     dispatch(setUser(json.user))
                     return true

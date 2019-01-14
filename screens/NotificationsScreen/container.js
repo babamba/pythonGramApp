@@ -1,16 +1,14 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
-import FeedScreen from "./presenter";
-import { image } from "react-native";
-import NavButton from "../../components/NavButton";
+import NotificationsScreen from "./presenter";
 
 class Container extends Component {
      // 라우트에서 하는법 컨테이너에서 하는법 둘다 있음 현재는 라우터에서 처리하는걸로 수정
      // static navigationOptions  = ({ navigation }) => ({
      // })
      static propTypes = {
-          feed : PropTypes.array,
-          getFeed : PropTypes.func.isRequired
+          notifications : PropTypes.array,
+          getNotifications : PropTypes.func.isRequired
      };
 
      state = {
@@ -18,8 +16,7 @@ class Container extends Component {
      };
 
      componentWillReceiveProps = nextProps => {
-          //console.log("nextProps.feed", nextProps.feed);
-          if(nextProps.feed){
+          if(nextProps.notifications){
                this.setState({
                     isFetching : false
                })
@@ -27,7 +24,7 @@ class Container extends Component {
      }
      render() {
           return (
-               <FeedScreen 
+               <NotificationsScreen 
                     {...this.props} 
                     {...this.state} 
                     refresh={this._refresh} 
@@ -36,11 +33,11 @@ class Container extends Component {
      }
 
      _refresh = () => {
-          const { getFeed } = this.props;
+          const { getNotifications } = this.props;
           this.setState({
                isFetching : true
           });
-          getFeed();
+          getNotifications();
           console.log("isFetch refresh")
      }
 
