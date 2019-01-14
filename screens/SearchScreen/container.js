@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import SearchScreen from "./presenter";
 import SearchBar from "../../components/SearchBar";
 
@@ -33,9 +34,15 @@ class Container extends Component {
           return {
                headerTitle : <SearchBar submit={text => params.submitSearch(text)} />
           }
+     };
+     static propTypes = {
+          getEmptySearch: PropTypes.func.isRequired,
+          searchHashtag: PropTypes.func.isRequired,
+          search : PropTypes.array
      }
      state = {
-          searchingBy : ""
+          searchingBy : "",
+          isFetching : false
      }
      componentDidMount() {
           //스크린이 리액트 네비게이션의 자손이면 navigation props를 가짐.
@@ -45,18 +52,43 @@ class Container extends Component {
           })
      }
 
+     // 해쉬태그검색후 계속 로딩하는걸 방지
+     componentWillReceiveProps = (nextProps) => {
+          if(nextProps.search){
+               this.setState({
+                    isFetching : false
+               })
+          }
+     }
+
      render(){
-          return <SearchScreen {...this.state}/>;
+          return <SearchScreen {...this.state} {...this.props} refresh={this._refresh} />
      }
      // _submitSearch 함수를 검색바 컴포넌트에 
      // 네비게이션에 파라미터로 전달함(navigation.setParams)
      _submitSearch = text => {
           const { searchingBy } = this.state;
+          const { searchHashtag, getEmptySearch } = this.props;
           console.log("before",this.state);
+          if(text === ""){
+               getEmptySearch();
+          }else{
+               searchHashtag(text);
+          }
           this.setState({
-               searchingBy : text
-          })
+               searchingBy : text,
+               isFetching : true
+          });
      }
+     _refresh = () => {
+          const { searchingBy } = this.state
+          const { getEmptySearch, searchHashtag } = this.props;
+          if(searchingBy === ""){
+               getEmptySearch();
+          }else{
+               searchHashtag(searchingBy);
+          }
+     };
 }
 
 export default Container;

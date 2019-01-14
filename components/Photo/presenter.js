@@ -4,6 +4,7 @@ import { View, Text, TouchableOpacity, Image, Dimensions, StyleSheet } from "rea
 import FadeIn from "react-native-fade-in-image";
 import { withNavigation } from "react-navigation";
 import PhotoActions from "../PhotoActions";
+import FitImage from "react-native-fit-image";
 
 const { width, height } = Dimensions.get("window");
 
@@ -26,11 +27,11 @@ const Photo = props => (
                     </View>
                </View>
           </TouchableOpacity>
-          <FadeIn>
-               <Image source={{uri: props.file}} 
+          {/* <FadeIn> */}
+               <FitImage source={{uri: props.file}} 
                     style={{ width, height: props.is_vertical ? 600 : 300 }}
                />
-          </FadeIn>
+          {/* </FadeIn> */}
           <View style={styles.photoMeta} >
                <PhotoActions 
                     is_liked={props.isLiked} 
