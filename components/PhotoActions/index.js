@@ -10,12 +10,12 @@ import { withNavigation } from "react-navigation";
 const PhotoActions = props => (
      <View style={styles.container}>
           <View style={styles.actions}>
-               <TouchableOpacity>
+               <TouchableOpacity onPressOut={props.handlePress}>
                     <View style={styles.action}>
                          <Ionicons name={props.is_liked ? 
                               "ios-heart" : "ios-heart-empty"} 
                               size={30} 
-                              color={props.is_liked ? "eb4b59" : "black"} />
+                              color={props.is_liked ? "#eb4b59" : "black"} />
                     </View>
                </TouchableOpacity>
                <TouchableOpacity onPressOut={() => props.navigation.navigate("Comments")} >
@@ -51,7 +51,8 @@ const styles = StyleSheet.create({
 
 PhotoActions.propTypes = {
      is_liked: PropTypes.bool.isRequired,
-     like_count:PropTypes.number.isRequired
+     like_count:PropTypes.number.isRequired,
+     handlePress : PropTypes.func.isRequired
 }
 
 export default withNavigation(PhotoActions);
