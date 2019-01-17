@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import Conatiner from "./container";
+import Container from "./container";
 import { actionCreators as userActions } from "../../redux/modules/user";
 
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -14,4 +14,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
      }
 }
 
-export default connect(null, mapDispatchToProps)(Conatiner);
+export default connect(null, mapDispatchToProps)(Container);
