@@ -149,6 +149,48 @@ function getOwnProfile(){
      }
 }
 
+function followUser(userId){
+     return (dispatch, getState) => {
+          const { user : { token } } = getState();
+          fetch(`${API_URL}/users/${userId}/follow/` , {
+               method:"POST",
+               headers:{
+                    Authorization : `JWT ${token}`
+               }
+          })
+          .then(response => {
+               if(response.status === 401){
+                    dispatch(logOut());
+               }else if(response.ok){
+                    return true;
+               }else if(!response.ok){
+                    return false;
+               }
+          })
+     }
+}
+
+function unfollowUser(userId){
+     return (dispatch, getState) => {
+          const { user : { token } } = getState();
+          fetch(`${API_URL}/users/${userId}/unfollow/` , {
+               method:"POST",
+               headers:{
+                    Authorization : `JWT ${token}`
+               }
+          })
+          .then(response => {
+               if(response.status === 401){
+                    dispatch(logOut());
+               }else if(response.ok){
+                    return true;
+               }else if(!response.ok){
+                    return false;
+               }
+          })
+     }
+}
+
 // Initial State
 
 // 유저가 앱을 처음받고 첫 로그인화면때는 false
@@ -219,7 +261,9 @@ const actionCreators = {
      facebookLogin,
      logOut,
      getNotifications,
-     getOwnProfile
+     getOwnProfile,
+     followUser,
+     unfollowUser
 }
 
 export { actionCreators };
