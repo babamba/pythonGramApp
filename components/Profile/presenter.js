@@ -5,6 +5,8 @@ import { View, Text, ScrollView, RefreshControl, StyleSheet, Dimensions, Image, 
 import { Ionicons } from "@expo/vector-icons";
 import FadeIn from "react-native-fade-in-image";
 import ProfileNumber from "../ProfileNumber";
+import SquarePhoto from "../SquarePhoto";
+import Photo from "../Photo";
 
 const width = Dimensions.get("window").width;
 
@@ -83,11 +85,12 @@ const Profile = props => (
                       <Text style={styles.website}>{props.profileObject.website}</Text>
                     </TouchableOpacity>
                   </View>
-                  {/* <View style={styles.modeBar}>
+                </View>
+                <View style={styles.modeBar}>
                     <TouchableOpacity onPressOut={props.changeToGrid}>
                       <View style={styles.modeIcon}>
                         <Ionicons
-                          name={"ios-grid-outline"}
+                          name={"ios-grid"}
                           size={30}
                           color={props.mode === "grid" ? "#3e99ee" : "black"}
                         />
@@ -102,8 +105,25 @@ const Profile = props => (
                         />
                       </View>
                     </TouchableOpacity>
-                  </View> */}
-                </View>
+                </View> 
+                {props.mode === "grid" && (
+                    <View style={styles.photoContainer}>
+                      {props.profileObject && props.profileObject.images && props.profileObject.images.map(photo => 
+                        <SquarePhoto key={photo.id} imageURL={photo.file} />)
+                      }
+                    </View>
+                  )
+                }
+
+                {props.mode === "list" && (
+                    <View style={styles.photoContainer}>
+                      {props.profileObject && props.profileObject.images && props.profileObject.images.map(photo => 
+                        <Photo {...photo} key={photo.id} />)
+                      }
+                    </View>
+                  )
+                }
+                
               </ScrollView>
             </View>
 );
@@ -159,7 +179,8 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   photoContainer: {
-    flexDirection: "row"
+    flexDirection: "row",
+    flexWrap: "wrap"
   },
   button: {
     borderRadius: 3,
@@ -214,7 +235,10 @@ Profile.propTypes = {
        profile_image: PropTypes.string,
        username: PropTypes.string,
        website: PropTypes.string
-     })
+     }),
+     changeToGrid:PropTypes.func.isRequired,
+     changeToList:PropTypes.func.isRequired,
+     mode:PropTypes.oneOf(["grid", "list"]).isRequired
    };
 
 export default Profile;

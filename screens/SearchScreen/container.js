@@ -69,7 +69,7 @@ class Container extends Component {
      _submitSearch = text => {
           const { searchingBy } = this.state;
           const { searchHashtag, getEmptySearch } = this.props;
-          console.log("before",this.state);
+          //console.log("before",this.state);
           if(text === ""){
                getEmptySearch();
           }else{

@@ -16,8 +16,10 @@ class Container extends Component {
           dispatchLike : PropTypes.func.isRequired
      };
      render(){
-          //console.log(this.props);
-          return <Photo handlePress = {this._handlePress} {...this.props} {...this.state} />;
+          console.log(this.props.creator);
+          return (
+                    <Photo handlePress = {this._handlePress} {...this.props} {...this.state} />
+                 )
      }
      // 생성시점에 지정해준 state 값을 가지고 내부 이벤트 관리
      //_handlePress = async() => { 승인으로 관리할떄 
