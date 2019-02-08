@@ -20,7 +20,7 @@ const SearchScreen = props => (
     <View style={styles.container}>
           {/* {props.feed && 
                props.feed.map(photo => <Photo {...photo} key={photo.id} />)} */}
-               {props.search.length === 0 && props.searchingBy.length > 1 ? (
+               {props.search && props.search.length === 0 && props.searchingBy.length > 1 ? (
                     <Text style={styles.notFound}>No images found of {props.searchingBy}</Text>
                     ): props.search.map(photo => <SquarePhoto key={photo.id} imageURL = {photo.file} />)
                }

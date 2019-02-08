@@ -11,6 +11,7 @@ const AddPhotoNavigation = createMaterialTopTabNavigator (
                screen : CameraScreen,
                navigationOptions:{
                     tabBarLabel:"Photo"
+                    
                }
           },
           Library: {
@@ -22,21 +23,20 @@ const AddPhotoNavigation = createMaterialTopTabNavigator (
      },
      {
           initialRouteName: 'Camara',
-          activeColor: '#f0edf6',
-          inactiveColor: '#3e2465',
-          barStyle: { backgroundColor: '#694fad' },
-          tabBarPosition:"top",
           swipeEnabled:true,
           animationEnabled:true,
           tabBarOptions: {
+               showLabel:true,
+               upperCaseLabel:true,
                style: {
-                 backgroundColor: 'blue',
-                 ...ifIphoneX({
-                    paddingTop: 50
-                }, {
-                    paddingTop: 20
-                })
+                 ...ifIphoneX({paddingTop: 50}, {paddingTop: 20}),
+                 backgroundColor: 'white',
                },
+               labelStyle:{
+                    fontSize:14,
+                    fontWeight:"600",
+                    color:"black"
+               }
              }
      },
 );

@@ -10,7 +10,9 @@ class Container extends Component {
           notifications : PropTypes.array,
           getNotifications : PropTypes.func.isRequired
      };
-
+     static defaultProps = {
+          notifications :[]
+     }
      state = {
           isFetching : false
      };

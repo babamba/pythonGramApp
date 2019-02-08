@@ -15,7 +15,8 @@ const RootNavigator = createStackNavigator(
                navigationOptions:{
                     header:null
                }
-          }
+          },
+
      },
      {
           mode : "modal"

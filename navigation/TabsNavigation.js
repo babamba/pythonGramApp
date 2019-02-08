@@ -76,12 +76,15 @@ const TabsNavigation = createBottomTabNavigator (
           }
      },
      {
+          tabBarPosition: "bottom",
           tabBarOptions:{
                showLabel:false,
+               swipeEnabled: true,
+               animationEnabled: true,
                style:{
                     backgroundColor:"#FBFBFB",
                     height:45
-               }
+               },
           },
      },
      
