@@ -17,7 +17,7 @@ class Container extends Component {
      };
 
      render(){
-          console.log(this.props);
+          //console.log(this.props);
           return <Notification handleFollowPress={this._handleFollowPress} {...this.props} {...this.state}/>
      }
      _handleFollowPress = () => {

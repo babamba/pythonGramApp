@@ -5,7 +5,9 @@ import { actionCreators as photoActions} from "../../redux/modules/photos"
 const mapStateToProps = (state, ownProps ) => {
      const { photos : { feed } } = state
      //console.log(state);
+     //console.log(feed)
      return {
+          
           feed
      }
 }

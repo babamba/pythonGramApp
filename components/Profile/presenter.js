@@ -24,7 +24,7 @@ const Profile = props => (
               >
                 <View style={styles.profile}>
                   <View style={styles.header}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPressOut={props.showAS}>
                       <Image
                         source={
                           props.profileObject.profile_image
@@ -70,7 +70,7 @@ const Profile = props => (
                       ) : (
                         <TouchableOpacity>
                           <View style={[styles.button, { backgroundColor: "#3e99ee" }]}>
-                            <Text style={[styles.text, { color: "black" }]}>
+                            <Text style={[styles.text, { color: "white" }]}>
                               {props.profileObject.following ? "Unfollow" : "Follow"}
                             </Text>
                           </View>
@@ -202,8 +202,8 @@ Profile.propTypes = {
        bio: PropTypes.string,
        followers_count: PropTypes.number,
        following_count: PropTypes.number,
-       is_self:PropTypes.bool.isRequired,
-       following:PropTypes.bool.isRequired,
+       is_self:PropTypes.bool,
+       following:PropTypes.bool,
        images: PropTypes.arrayOf(
          PropTypes.shape({
            id: PropTypes.number.isRequired,
@@ -238,7 +238,8 @@ Profile.propTypes = {
      }),
      changeToGrid:PropTypes.func.isRequired,
      changeToList:PropTypes.func.isRequired,
-     mode:PropTypes.oneOf(["grid", "list"]).isRequired
+     mode:PropTypes.oneOf(["grid", "list"]).isRequired,
+     showAS:PropTypes.func.isRequired,
    };
 
 export default Profile;

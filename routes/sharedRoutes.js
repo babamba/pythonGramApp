@@ -21,9 +21,6 @@ const sharedRoutes = {
      },
      ProfileDetail : {
           screen : ProfileDetailScreen,
-          navigationOptions: {
-               headerTitle:""
-          }
      },
      Photo : {
           screen : PhotoScreen,

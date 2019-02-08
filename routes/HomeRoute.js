@@ -1,5 +1,5 @@
 import React from "react";
-import { createStackNavigator } from "react-navigation";
+import { createStackNavigator, createAppContainer } from "react-navigation";
 import { Image } from "react-native";
 import FeedScreen from "../screens/FeedScreen";
 import sharedRoutes, { sharedOptions } from "./sharedRoutes";
@@ -29,4 +29,4 @@ const HomeRoute = createStackNavigator(
      }
 );
 
-export default HomeRoute;
+export default createAppContainer(HomeRoute);

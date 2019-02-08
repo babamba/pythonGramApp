@@ -37,6 +37,7 @@ function getFeed(){
                if(response.status === 401){
                     dispatch(userActions.logOut());
                }else{
+                              
                     return response.json();
                }
           })

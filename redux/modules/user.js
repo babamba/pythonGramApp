@@ -37,9 +37,9 @@ function setNotifications(notifications){
      }
 }
 
-function logOut(){
-     return { type:LOG_OUT };
-}
+function logOut() {
+     return { type: LOG_OUT };
+   }
 
 // API Actions
 function login(username, password){
@@ -149,6 +149,26 @@ function getOwnProfile(){
      }
 }
 
+function getProfile(username){
+     return (dispatch, getState) => {
+          const { user : { token } } = getState();
+          return fetch(`${API_URL}/users/${username}/`, {
+               headers: {
+                    Authorization : `JWT ${token}`
+               }
+          })
+          .then(response => {
+               if(response.status === 401){
+                    dispatch(logOut());
+               }else{
+                    return response.json();
+               }
+          })
+          .then(json => json);
+          
+     }
+}
+
 function followUser(userId){
      return (dispatch, getState) => {
           const { user : { token } } = getState();
@@ -229,13 +249,22 @@ function applyLogIn(state, action){
      }
 }
 
-async function applyLogOut(state, action){
-     await AsyncStorage.clear();
-     const { token } = action;
+// async function applyLogOut(state, action){
+//      await AsyncStorage.clear();
+//      const { token } = action;
+//      return {
+//           ...state,
+//           isLoggedIn:false,
+//           token: ""
+//      }
+// }
+
+function applyLogOut(state, action){
+     AsyncStorage.clear();
      return {
           ...state,
           isLoggedIn:false,
-          token: ""
+          token:""
      }
 }
 
@@ -263,7 +292,8 @@ const actionCreators = {
      getNotifications,
      getOwnProfile,
      followUser,
-     unfollowUser
+     unfollowUser,
+     getProfile
 }
 
 export { actionCreators };

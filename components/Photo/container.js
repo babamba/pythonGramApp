@@ -16,7 +16,7 @@ class Container extends Component {
           dispatchLike : PropTypes.func.isRequired
      };
      render(){
-          console.log(this.props.creator);
+          //console.log(this.props.creator);
           return (
                     <Photo handlePress = {this._handlePress} {...this.props} {...this.state} />
                  )

@@ -7,9 +7,9 @@ class Container extends Component {
      static navigationOptions = ({ navigation }) => {
           // 네비게이션 state의 params를 가지고 submit 함수 전달 
           const { params } = navigation.state;
-          console.log("params" ,params)
-          console.log("navigation" ,navigation)
-          console.log("navigation.state" ,navigation.state)
+          //console.log("params" ,params)
+          //console.log("navigation" ,navigation)
+          //console.log("navigation.state" ,navigation.state)
 
           // navigation Object {
           //      [12:57:04]   "actions": Object {
