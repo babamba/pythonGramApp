@@ -1,8 +1,9 @@
 import React ,{ Component }from "react";
-import { View, Text, TouchableOpacity, StyleSheet, Image, CameraRoll} from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Image, CameraRoll , StatusBar} from "react-native";
 import { Camera, Permissions } from "expo";
 import { MaterialIcons } from "@expo/vector-icons"
 import FitImage from "react-native-fit-image";
+
 
 class CameraScreen extends Component{
      state = {
@@ -16,9 +17,13 @@ class CameraScreen extends Component{
      componentWillMount = async () => {
           const camera = await Permissions.askAsync(Permissions.CAMERA);
           console.log(camera)
-          this.setState({
-               hasCamaraPermissions : camera.status === "granted"
-          });
+
+          if(camera.status ==='granted'){
+               this.setState({
+                    hasCamaraPermissions : camera.status === "granted"
+               });
+          }
+          
      }
 
      render() {
@@ -30,6 +35,7 @@ class CameraScreen extends Component{
           }else{
                return(
                     <View style={styles.container}>
+                    <StatusBar hidden={true}/>
                          {
                               pictureTaken ? (
                                    <View style={{flex:2}}>
@@ -154,7 +160,9 @@ class CameraScreen extends Component{
      };
      _approvePhoto = async () => {
           const { picture } = this.state;
+          const { navigation: {navigate} } = this.props;
           const saveResult = await CameraRoll.saveToCameraRoll(picture, "photo");
+          navigate("UploadPhoto", { uri : picture } );
           this.setState({
                picture:null,
                pictureTaken:false

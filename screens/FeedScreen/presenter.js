@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { View, Text, ScrollView, RefreshControl, StyleSheet } from "react-native";
+import { View, Text, FlatList, ScrollView, RefreshControl, StyleSheet } from "react-native";
 import Photo from "../../components/Photo";
 
 const FeedScreen = props => (

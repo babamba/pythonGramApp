@@ -4,7 +4,6 @@ import AddPhotoNavigation from "../../navigation/AddPhotoNavigation";
 
 const TakePhotoScreen = props => (
      <View style={{flex : 1}}>
-          
           <StatusBar hidden={true}/>
           <AddPhotoNavigation/>
      </View>
