@@ -2,6 +2,7 @@
 
 import { API_URL } from "../../constant";
 import { actionCreators as userActions } from './user';
+import uuid from "uuid"
 
 // Actions
 const SET_FEED = 'SET_FEED';
@@ -125,6 +126,41 @@ function unlikePhoto(photoId){
      }
 }
 
+function uploadPhoto(file, caption, location, tags){
+     const tagsArray = tags.split(",");
+     const data = new FormData();
+     data.append("caption", caption);
+     data.append("location", location);
+     data.append("file", {
+          uri:file,
+          type:"image/jpeg",
+          name:`${uuid()}.jpg`
+     });
+     data.append("tags", JSON.stringify(tagsArray));
+     return (dispatch, getState) => {
+          const { user : { token } } = getState();
+          return fetch(`${API_URL}/images/`, {
+               method:"POST",
+               headers:{
+                    Authorization : `JWT ${token}`,
+                    "Content-Type":"multipart/form-data"
+               },
+               body:data
+          })
+          .then(response => {
+               if(response.status === '401'){
+                    dispatch(userActions.logOut());
+               }else if(response.ok){
+                    dispatch(getFeed());
+                    dispatch(userActions.getOwnProfile());
+                    return true;
+               }else{
+                    return false;
+               }
+          });
+     }
+}
+
 //initial State
 
 const initialState = {};
@@ -167,7 +203,8 @@ const actionCreators = {
      getSearch,
      likePhoto,
      unlikePhoto,
-     searchByHashtag
+     searchByHashtag,
+     uploadPhoto
 }
 
 export { actionCreators };

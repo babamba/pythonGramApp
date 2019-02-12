@@ -61,6 +61,8 @@ const styles = StyleSheet.create({
           flex:2,
           justifyContent: 'center',
           marginBottom: 5,
+          width: width,
+          height: height /3
      },
      photos:{
           flex:1

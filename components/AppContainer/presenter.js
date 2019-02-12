@@ -5,7 +5,8 @@ import LoggedOutNavigation from "../../navigation/LoggedOutNavigation"
 import RootNavigation from "../../navigation/RootNavigation"
 
 class AppContainer extends Component {
-
+     
+     
      static propTypes = {
           isLoggedIn: PropTypes.bool.isRequired,
           initApp : PropTypes.func.isRequired

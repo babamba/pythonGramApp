@@ -1,7 +1,7 @@
 // Imports
 import { API_URL, FB_APP_ID } from "../../constant";
 import { AsyncStorage } from "react-native";
-import { Permissions, Facebook } from "expo";
+import { Permissions, Notifications, Facebook } from "expo";
 
 // Actions
 const LOG_IN = "LOG_IN";
@@ -17,11 +17,11 @@ function setLogIn(token){
      }
 }
 
-function setLogOut(user){
-     return {
-          type: LOG_OUT
-     }
-}
+// function setLogOut(user){
+//      return {
+//           type: LOG_OUT
+//      }
+// }
 
 function setUser(user){
      return {
@@ -38,7 +38,9 @@ function setNotifications(notifications){
 }
 
 function logOut() {
-     return { type: LOG_OUT };
+     return { 
+          type: LOG_OUT 
+     };
    }
 
 // API Actions
@@ -211,6 +213,41 @@ function unfollowUser(userId){
      }
 }
 
+function registerForPush() {
+          return async (dispatch, getState) => {
+               const { user: { token } } = getState();
+               const { status: existingStatus } = await Permissions.getAsync(
+                    Permissions.NOTIFICATIONS
+               );
+          let finalStatus = existingStatus;
+               if (existingStatus !== "granted") {
+                    const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+                    finalStatus = status;
+               }
+          if (finalStatus === "denied") {
+               return;
+          }
+     
+          let pushToken = await Notifications.getExpoPushTokenAsync();
+          console.log("push Token : ",pushToken);
+          console.log("token " , `JWT ${token}`)
+          console.log("push Token strigify : ",JSON.stringify({
+               token: pushToken
+          }));
+
+          return fetch(`${API_URL}/users/push/`, {
+               method:"POST",
+               headers:{
+                    "Content-Type": "application/json",
+                    Authorization: `JWT ${token}`
+               },
+               body: JSON.stringify({
+                    token: pushToken
+               })
+          });
+     };
+}
+
 // Initial State
 
 // 유저가 앱을 처음받고 첫 로그인화면때는 false
@@ -259,8 +296,9 @@ function applyLogIn(state, action){
 //      }
 // }
 
-function applyLogOut(state, action){
-     AsyncStorage.clear();
+async function applyLogOut(state, action){
+     await AsyncStorage.clear();
+     const { user } = action;
      return {
           ...state,
           isLoggedIn:false,
@@ -293,7 +331,8 @@ const actionCreators = {
      getOwnProfile,
      followUser,
      unfollowUser,
-     getProfile
+     getProfile,
+     registerForPush
 }
 
 export { actionCreators };

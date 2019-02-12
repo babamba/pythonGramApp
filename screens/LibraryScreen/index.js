@@ -13,7 +13,7 @@ class Container extends Component {
 
      componentWillMount = async() => {
           const cameraPhotos = await CameraRoll.getPhotos({
-               first:2000,
+               first:20,
                groupTypes:"SavedPhotos",
                assetType:"Photos"
           })
@@ -37,7 +37,7 @@ class Container extends Component {
 
      _refresh = async () => {
           const cameraPhotos = await CameraRoll.getPhotos({
-               first:2000,
+               first:20,
                groupTypes:"SavedPhotos",
                assetType:"Photos"
           })

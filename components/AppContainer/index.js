@@ -22,6 +22,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                dispatch(userActions.getNotifications());
                //getProfile
                dispatch(userActions.getOwnProfile());
+
+               dispatch(userActions.registerForPush());
           }
      };
 };
